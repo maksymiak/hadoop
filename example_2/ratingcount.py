@@ -21,6 +21,5 @@ class MRHotelRaitingCount(MRJob):
       HName, (avg, count) = self._reducer_combiner(HName, rating)
       yield (HName, avg)
 
-
 if __name__ == '__main__':
     MRHotelRaitingCount.run()
