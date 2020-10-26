@@ -16,12 +16,12 @@ class MRHotelRaitingCount(MRJob):
         return (HName, (avg, count))
 
 
-    def combiner(self, HName, rating):
-        yield self._reducer_combiner(HName, rating)
+    def combiner(self, HName, ratings):
+        yield self._reducer_combiner(HName, ratings)
 
 
-    def reducer(self, HName, rating):
-        HName, (avg, count) = self._reducer_combiner(HName, rating)
+    def reducer(self, HName, ratings):
+        HName, (avg, count) = self._reducer_combiner(HName, ratings)
 
         yield (HName, rating)
 
