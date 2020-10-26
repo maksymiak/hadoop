@@ -6,6 +6,7 @@ class MRHotelRaitingCount(MRJob):
         (HName, HStar, HRooms, UCountry, NrReviews, rating, StayPeriod, TType, Pool, Gym, TCourt, Spa, Casino, Internet,
          UContinent, ReviewMonth, ReviewDay) = line.split("\t")
 
+        yield HName, rating
 
     def _reducer_combiner(self, HName, rating):
         avg, count = 0, 0
@@ -25,4 +26,4 @@ class MRHotelRaitingCount(MRJob):
         yield (HName, rating)
 
 if _name_ == '__main__':
-    MRHotelRaitingCount.run()
+    MRHotelRaitingCount.run(
