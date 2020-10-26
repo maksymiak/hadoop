@@ -22,5 +22,5 @@ class MRHotelRaitingCount(MRJob):
       yield (HName, avg)
 
 
-if __name__ == '_main_':
+if __name__ == '__main__':
     MRHotelRaitingCount.run()
