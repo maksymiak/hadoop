@@ -5,7 +5,7 @@ class MRHotelRaitingCount(MRJob):
     def mapper(self, _, line):
         (HName, HStar, HRooms, UCountry, NrReviews, rating, StayPeriod, TType, Pool, Gym, TCourt, Spa, Casino, Internet, UContinent, ReviewMonth, ReviewDay) = line.split("\t")
     
-        yield (HName, (rating, 1))
+        yield (HName, (rating))
 
 if __name__ == '__main__':
     MRHotelRaitingCount.run()
