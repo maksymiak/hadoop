@@ -10,7 +10,7 @@ class MRHotelRaitingCount(MRJob):
 
     def _reducer_combiner(self, HName, rating):
         avg, count = 0, 0
-        for tmp, c in rating
+        for tmp, c in rating:
             avg = (avg  count + tmp  c) / (count + c)
             count += c
         return (HName, (avg, count))
