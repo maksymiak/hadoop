@@ -7,19 +7,5 @@ class MRHotelRaitingCount(MRJob):
     
         yield (HName, (rating, 1))
 
-    def _reducer_combiner(self, HName, rating):
-      avg, count = 0, 0
-      for tmp, c in rating:
-        avg = (avg * count + tmp * c) / (count + c)
-        count += c
-      return (HName, (avg, count))
-
-    def combiner(self, HName, rating):
-      yield self._reducer_combiner(HName, rating)
-      
-    def reducer(self, HName, rating):
-      HName, (avg, count) = self._reducer_combiner(HName, rating)
-      yield (HName, avg)
-
 if __name__ == '__main__':
     MRHotelRaitingCount.run()
