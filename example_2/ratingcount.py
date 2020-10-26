@@ -26,4 +26,4 @@ class MRHotelRaitingCount(MRJob):
         yield (HName, rating)
 
 if _name_ == '__main__':
-    MRHotelRaitingCount.run(
+    MRHotelRaitingCount.run()
