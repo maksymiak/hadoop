@@ -6,24 +6,18 @@ class MRHotelRaitingCount(MRJob):
         (HName, HStar, HRooms, UCountry, NrReviews, rating, StayPeriod, TType, Pool, Gym, TCourt, Spa, Casino, Internet,
          UContinent, ReviewMonth, ReviewDay) = line.split("\t")
 
-        yield HName, rating
+        result = [HName, rating]
+        yield result
 
-    def _reducer_combiner(self, HName, ratings):
+
+    def reducer(self, key, ratings):
         avg, count = 0, 0
         for tmp, c in ratings:
             avg = (avg * count + tmp * c) / (count + c)
             count += c
-        return (HName, (avg, count))
+        result = (key, (avg, count))
 
-
-    def combiner(self, HName, ratings):
-        yield self._reducer_combiner(HName, ratings)
-
-
-    def reducer(self, HName, ratings):
-        HName, (avg, count) = self._reducer_combiner(HName, ratings)
-
-        yield (HName, rating)
+        yield result
 
 if __name__ == '__main__':
     MRHotelRaitingCount.run()
