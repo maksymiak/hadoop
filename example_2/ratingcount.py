@@ -14,7 +14,7 @@ class MRHotelRaitingCount(MRJob):
         count += c
       return (HName, (avg, count))
 
-    def combiner(self, HName, raiting):
+    def combiner(self, HName, rating):
       yield self._reducer_combiner(HName, rating)
       
     def reducer(self, HName, rating):
