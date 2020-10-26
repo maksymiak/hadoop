@@ -1,25 +1,26 @@
 from mrjob.job import MRJob
 
+
 class MRHotelRaitingCount(MRJob):
     def mapper(self, _, line):
         (HName, HStar, HRooms, UCountry, NrReviews, rating, StayPeriod, TType, Pool, Gym, TCourt, Spa, Casino, Internet, UContinent, ReviewMonth, ReviewDay) = line.split("\t")
     
-        yield (HName, (raiting, 1))
+        yield (HName, (rating, 1))
 
-    def _reducer_combiner(self, HName, raiting):
+    def _reducer_combiner(self, HName, rating):
       avg, count = 0, 0
-      for tmp, c in raiting:
+      for tmp, c in rating:
         avg = (avg * count + tmp * c) / (count + c)
         count += c
       return (HName, (avg, count))
 
     def combiner(self, HName, raiting):
-      yield self._reducer_combiner(HName, raiting)
+      yield self._reducer_combiner(HName, rating)
       
-    def reducer(self, HName, raiting):
-      HName, (avg, count) = self._reducer_combiner(HName, raiting)
-      yield (month, avg)
+    def reducer(self, HName, rating):
+      HName, (avg, count) = self._reducer_combiner(HName, rating)
+      yield (HName, avg)
 
 
-if __name__ == '__main__':
+if _name_ == '_main_':
     MRHotelRaitingCount.run()
