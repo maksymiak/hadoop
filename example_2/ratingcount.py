@@ -4,8 +4,8 @@ from mrjob.job import MRJob
 class MRHotelRaitingCount(MRJob):
     def mapper(self, _, line):
         (HName, HStar, HRooms, UCountry, NrReviews, rating, StayPeriod, TType, Pool, Gym, TCourt, Spa, Casino, Internet, UContinent, ReviewMonth, ReviewDay) = line.split("\t")
-    
-        yield (HName, (rating, 1))
+        wynik = [rating, 1]
+        yield (HName, wynik)
 
     def _reducer_combiner(self, HName, rating):
       avg, count = 0, 0
